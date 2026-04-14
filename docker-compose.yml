@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: kulkas-backend
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend/data:/app/data
+    env_file:
+      - ./backend/.env
+    environment:
+      - PORT=3001
+    restart: unless-stopped
+    networks:
+      - kulkas-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kulkas-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=/api
+    restart: unless-stopped
+    networks:
+      - kulkas-network
+
+networks:
+  kulkas-network:
+    driver: bridge
+
+volumes:
+  backend-data:

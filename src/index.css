@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Hub-style Orange Theme */
+  --bg-color: #0f1115;
+  /* Very dark, almost black */
+  --bg-secondary: #181b21;
+  /* Slightly lighter for cards */
+  --primary: #f59e0b;
+  /* Orange Amber (Hub style) */
+  --primary-hover: #d97706;
+
+  --text-main: #e2e8f0;
+  /* Off-white */
+  --text-muted: #94a3b8;
+  /* Slate gray */
+
+  --border-color: #2d3748;
+  --glass-bg: rgba(24, 27, 33, 0.85);
+
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
+
+  --radius-xl: 16px;
+  --radius-lg: 12px;
+  --radius-md: 8px;
+}
+
+[data-theme="light"] {
+  --bg-color: #f8fafc;
+  --bg-secondary: #ffffff;
+  --primary: #f59e0b;
+  /* Keep Orange */
+  --primary-hover: #d97706;
+
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+
+  --border-color: #e2e8f0;
+  --glass-bg: rgba(255, 255, 255, 0.9);
+
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Utilities */
+.glass {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.glass-hover:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-lg);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 0 12px;
+  }
+}
+
+/* Responsive Grid/List */
+.product-grid {
+  display: grid;
+  gap: 24px;
+  padding-bottom: 120px;
+}
+
+.product-grid.grid {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.product-grid.list {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 600px) {
+  .product-grid {
+    gap: 12px;
+  }
+
+  .product-grid.grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Floating Cart Toast */
+.cart-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 500px;
+  background: var(--primary);
+  color: #000;
+  padding: 16px 20px;
+  border-radius: var(--radius-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  cursor: pointer;
+  animation: slideUpToast 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.2s;
+}
+
+.cart-toast:active {
+  transform: translateX(-50%) scale(0.98);
+}
+
+@keyframes slideUpToast {
+  from {
+    transform: translateX(-50%) translateY(100px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #0f1115;
+  /* Dark text on gold button */
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--radius-lg);
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.title-gradient {
+  color: var(--primary);
+  /* Solid orange for better contrast/elegance */
+  background: linear-gradient(135deg, var(--primary), #fbbf24);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.3));
+}
+
+/* Input Styles for Dark Mode */
+input,
+select {
+  background: #232730;
+  border: 1px solid var(--border-color);
+  color: white;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--primary);
+  outline: none;
+}
