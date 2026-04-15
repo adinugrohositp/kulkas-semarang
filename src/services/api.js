@@ -102,6 +102,13 @@ export const api = {
         return response.json();
     },
 
+    // Reports
+    async getReports(period) {
+        const response = await fetch(`${API_URL}/reports${period ? `?period=${period}` : ''}`);
+        if (!response.ok) throw new Error('Failed to fetch reports');
+        return response.json();
+    },
+
     // Helper to resolve image URLs
     resolveImage(url) {
         if (!url) return null;

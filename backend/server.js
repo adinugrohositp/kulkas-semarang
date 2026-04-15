@@ -19,6 +19,7 @@ const settingsRouter = require('./routes/settings');
 const imageRouter = require('./routes/image');
 const authRouter = require('./routes/auth');
 const checkoutRouter = require('./routes/checkout');
+const reportsRouter = require('./routes/reports');
 
 app.use('/api/products', productsRouter);
 app.use('/api/upload', uploadRouter);
@@ -26,6 +27,7 @@ app.use('/api/settings', settingsRouter);
 app.use('/api/image', imageRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/checkout', checkoutRouter);
+app.use('/api/reports', reportsRouter);
 
 // Health check
 app.get('/health', (req, res) => {

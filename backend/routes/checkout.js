@@ -16,12 +16,15 @@ router.post('/', (req, res) => {
         const updateStock = db.prepare('UPDATE products SET stock = stock - ? WHERE id = ?');
         const getSales = db.prepare('SELECT value FROM settings WHERE key = ?');
         const upsertSetting = db.prepare('INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value');
+        const insertTx = db.prepare('INSERT INTO transactions (product_id, product_name, category, quantity, price, total) VALUES (?, ?, ?, ?, ?, ?)');
 
         // Use transaction to ensure data integrity
         db.transaction(() => {
             for (const item of cart) {
-                totalAmount += item.price * item.quantity;
+                const totalItemAmount = item.price * item.quantity;
+                totalAmount += totalItemAmount;
                 updateStock.run(item.quantity, item.id);
+                insertTx.run(item.id, item.name, item.category, item.quantity, item.price, totalItemAmount);
             }
             
             // Re-fetch total sales inside transaction and update it

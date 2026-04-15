@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../services/api';
+import ReportView from './ReportView';
 
 const AdminDashboard = ({ onExit, onAddProduct, onUpdateProduct, onDeleteProduct, products, qrisUrl, onUpdateQris, appLogoUrl, onUpdateAppLogo }) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -16,6 +17,7 @@ const AdminDashboard = ({ onExit, onAddProduct, onUpdateProduct, onDeleteProduct
     });
     
     const [totalSales, setTotalSales] = useState(0);
+    const [reportPeriod, setReportPeriod] = useState(null);
 
     useEffect(() => {
         api.getSettings().then(res => {
@@ -101,6 +103,10 @@ const AdminDashboard = ({ onExit, onAddProduct, onUpdateProduct, onDeleteProduct
         }
     };
 
+    if (reportPeriod) {
+        return <ReportView period={reportPeriod} onClose={() => setReportPeriod(null)} appLogoUrl={appLogoUrl} />;
+    }
+
     return (
         <div className="container" style={{ paddingTop: '40px', paddingBottom: '60px' }}>
             <button onClick={onExit} style={{ marginBottom: '20px', background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontWeight: 600 }}>
@@ -109,13 +115,21 @@ const AdminDashboard = ({ onExit, onAddProduct, onUpdateProduct, onDeleteProduct
 
             <div className="glass" style={{ padding: '32px', borderRadius: 'var(--radius-xl)', maxWidth: '800px', margin: '0 auto', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
                 
-                {/* Total Saldo Penjualan Widget */}
-                <div style={{ marginBottom: '24px', background: 'var(--primary)', color: '#111', padding: '24px', borderRadius: 'var(--radius-lg)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 4px 15px rgba(212, 175, 55, 0.2)' }}>
+                {/* Total Saldo Penjualan & Laporan Widget */}
+                <div style={{ marginBottom: '24px', background: 'var(--primary)', color: '#111', padding: '24px', borderRadius: 'var(--radius-lg)', display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 4px 15px rgba(212, 175, 55, 0.2)' }}>
                     <div>
                         <p style={{ margin: 0, fontSize: '1rem', fontWeight: 600, opacity: 0.8 }}>Total Saldo Penjualan</p>
                         <h3 style={{ margin: '4px 0 0 0', fontSize: '2.2rem' }}>{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(totalSales)}</h3>
                     </div>
-                    <div style={{ fontSize: '3rem', opacity: 0.8 }}>💰</div>
+                    <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                        <div style={{ fontSize: '2rem', opacity: 0.8, marginRight: '10px' }}>📄</div>
+                        <button onClick={() => setReportPeriod('weekly')} style={{ padding: '10px 16px', background: '#000', color: 'var(--primary)', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
+                            Cetak Mingguan
+                        </button>
+                        <button onClick={() => setReportPeriod('monthly')} style={{ padding: '10px 16px', background: '#000', color: 'var(--primary)', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
+                            Cetak Bulanan
+                        </button>
+                    </div>
                 </div>
 
                 <h2 className="title-gradient" style={{ marginBottom: '24px' }}>
@@ -222,6 +236,8 @@ const AdminDashboard = ({ onExit, onAddProduct, onUpdateProduct, onDeleteProduct
                             >
                                 <option value="makanan">Makanan</option>
                                 <option value="minuman">Minuman</option>
+                                <option value="household">Household</option>
+                                <option value="personal care">Personal Care</option>
                             </select>
                         </div>
                     </div>

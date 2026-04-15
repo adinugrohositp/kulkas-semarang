@@ -8,7 +8,7 @@ const Header = ({ searchQuery, setSearchQuery, category, setCategory, cartCount,
             position: 'sticky',
             top: 0,
             zIndex: 100,
-            padding: '12px 16px',
+            padding: '24px 20px',
             background: 'rgba(15, 17, 21, 0.9)',
             backdropFilter: 'blur(10px)',
             borderBottom: '1px solid var(--border-color)'
@@ -25,30 +25,30 @@ const Header = ({ searchQuery, setSearchQuery, category, setCategory, cartCount,
                     width: '100%'
                 }}>
                     {/* Logo Area */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                         {appLogoUrl ? (
-                            <img src={api.resolveImage(appLogoUrl)} alt="App Logo" style={{ width: '32px', height: '32px', objectFit: 'contain', borderRadius: '6px' }} />
+                            <img src={api.resolveImage(appLogoUrl)} alt="App Logo" style={{ height: '96px', width: 'auto', maxWidth: '280px', objectFit: 'contain', borderRadius: '8px' }} />
                         ) : (
                             <div style={{
-                                width: '32px',
-                                height: '32px',
+                                width: '64px',
+                                height: '64px',
                                 background: 'var(--primary)',
-                                borderRadius: '6px',
+                                borderRadius: '12px',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 color: '#000',
                                 fontWeight: 'bold',
-                                fontSize: '16px'
+                                fontSize: '32px'
                             }}>
                                 K
                             </div>
                         )}
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <span style={{ fontSize: '1.1rem', fontWeight: 600 }}>
+                            <span style={{ fontSize: '2.2rem', fontWeight: 700, letterSpacing: '-0.5px' }}>
                                 Kulkas<span style={{ color: 'var(--primary)' }}>Kejujuran</span>
                             </span>
-                            <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                            <span style={{ fontSize: '1.2rem', color: 'var(--text-muted)', marginTop: '2px' }}>
                                 Koperasi KDMP &quot;Koperasi Djasa Maju Pesat&quot;
                             </span>
                         </div>
@@ -169,7 +169,7 @@ const Header = ({ searchQuery, setSearchQuery, category, setCategory, cartCount,
 
                     {/* Category Toggles */}
                     <div style={{ display: 'flex', gap: '4px', flexShrink: 0 }}>
-                        {['all', 'makanan', 'minuman'].map(cat => (
+                        {['all', 'makanan', 'minuman', 'household', 'personal care'].map(cat => (
                             <button
                                 key={cat}
                                 onClick={() => setCategory(cat)}

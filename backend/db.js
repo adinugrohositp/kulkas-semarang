@@ -35,6 +35,17 @@ const initDb = () => {
       key TEXT PRIMARY KEY,
       value TEXT NOT NULL
     );
+
+    CREATE TABLE IF NOT EXISTS transactions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      product_id INTEGER,
+      product_name TEXT NOT NULL,
+      category TEXT NOT NULL,
+      quantity INTEGER NOT NULL,
+      price INTEGER NOT NULL,
+      total INTEGER NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 
   // Check if table is empty and seed with initial data
